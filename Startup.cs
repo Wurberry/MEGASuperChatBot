@@ -38,6 +38,8 @@ namespace MEGASuperChatBot
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MEGASuperChatBot", Version = "v1" });
             });
+
+            services.AddHostedService<Bot>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,7 +49,7 @@ namespace MEGASuperChatBot
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DeleteMEEEEEEEEEEEE v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MegaChatBot v1"));
             }
 
             app.UseHttpsRedirection();
