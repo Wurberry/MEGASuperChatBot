@@ -16,6 +16,5 @@ namespace MEGASuperChatBot
         public List<CommandEntity> FindByCommandByAuthorName(string authorName);
         public List<CommandEntity> FindByCommandByTriggerName(string triggerName);
 
-
     }
 }

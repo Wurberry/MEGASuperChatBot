@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEGASuperChatBot", "MEGASuperChatBot.csproj", "{F3B0DA51-2A94-4595-B440-A69B3B2859BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MEGASuperChatBot", "MEGASuperChatBot.csproj", "{F3B0DA51-2A94-4595-B440-A69B3B2859BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MegaSuperChatBot_Client", "..\MegaSuperChatBot_Client\MegaSuperChatBot_Client.csproj", "{A6EC1B54-EF8D-4DB3-9A92-F33003EC7120}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{F3B0DA51-2A94-4595-B440-A69B3B2859BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3B0DA51-2A94-4595-B440-A69B3B2859BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3B0DA51-2A94-4595-B440-A69B3B2859BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6EC1B54-EF8D-4DB3-9A92-F33003EC7120}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6EC1B54-EF8D-4DB3-9A92-F33003EC7120}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6EC1B54-EF8D-4DB3-9A92-F33003EC7120}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6EC1B54-EF8D-4DB3-9A92-F33003EC7120}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

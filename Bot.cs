@@ -7,24 +7,45 @@ using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MEGASuperChatBot
 {
     public class Bot : Microsoft.Extensions.Hosting.IHostedService
     {
-        private readonly ILogger<Bot> _logger;//Логгер для красивого логирования
+        private readonly TelegramBotClient _botClient = new TelegramBotClient("2104392069:AAHPwTfZqb1LcPJb9gr9vbYXdTDtxQefj5E"); //Создание ТГ-бота - нужно указать токен _services это IServiceScopeFactory
 
-        private readonly TelegramBotClient _botClient = new TelegramBotClient("2104392069:AAHPwTfZqb1LcPJb9gr9vbYXdTDtxQefj5E"); //Создание ТГ-бота - нужно указать токен
+        private readonly IServiceScopeFactory _services;
+
+        private readonly ILogger<Bot> _logger;
+
+        private ChatService chatServices;
+
+        public Bot(IServiceScopeFactory services, ILogger<Bot> logger)
+        {
+            this._logger = logger;
+            this._services = services;
+        }
+
         public Bot(ILogger<Bot> logger)
         {
             this._logger = logger; // Забираем логгер с помощью ASP.NET Dependency Injection
         }
+
         public Task StartAsync(CancellationToken cancellationToken)
         { //Запускается при запуске IHostedService, при регистрации
             using var cts = new CancellationTokenSource();
             _botClient.StartReceiving(
             new DefaultUpdateHandler(HandleUpdateAsync, HandleErrorAsync), cts.Token); //Начинаем получать и обрабатывать сообщения/обновления в методах HandleUpdateAsync и HandleErrorAsync
             _logger.LogInformation("Bot init"); //Логируем
+
+            var scope = _services.CreateScope();
+            var dbContext = scope.ServiceProvider.GetService<DatabaseContext>();
+            var repository = new CommandRepository(dbContext);
+            var chatService = new ChatService(repository); // Создаем сервис команд на основе репозитория
+            chatService.RegisterBot(this);
+            chatServices = chatService;
+
             return Task.CompletedTask;
         }
         public Task StopAsync(CancellationToken cancellationToken)
@@ -60,10 +81,13 @@ namespace MEGASuperChatBot
             {//Если это не текст - пропускаем
                 return;
             }
+
+            ChatMessage chatMessage = new ChatMessage(update);
+            chatServices.ProcessMessage(chatMessage);
             
-            var chatId = update.Message.Chat.Id; //Получаем ИД чата
-            _logger.LogInformation($"Получено '{update.Message.Text}' в чате { chatId}."); // Для удобства логируем пришедшее сообщение
-            await SendMessageToChat(chatId, "Ответ"); //Отправляем ответ
+            var chatId = chatMessage.getChatId(); //Получаем ИД чата
+            _logger.LogInformation($"Получено '{chatMessage.getMessageText()}' в чате { chatId}."); // Для удобства логируем пришедшее сообщение
+            //await SendMessageToChat(chatId, "Ответ"); //Отправляем ответ
         }
     }
 }

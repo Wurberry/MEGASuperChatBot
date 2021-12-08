@@ -5,8 +5,6 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
-
 namespace MEGASuperChatBot
 {
     public class CommandEntity
@@ -22,5 +20,6 @@ namespace MEGASuperChatBot
         public string CommandCreateDate { get; set; }
         public Boolean IsScript { get; set; }
         public String ScriptName { get; set; }
+        public string ScriptText { get; set; }
     }
 }

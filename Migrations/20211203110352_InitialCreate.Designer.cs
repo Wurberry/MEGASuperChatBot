@@ -2,15 +2,17 @@
 using MEGASuperChatBot;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace MEGASuperChatBot.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20211203110352_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +46,6 @@ namespace MEGASuperChatBot.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("ScriptName")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ScriptText")
                         .HasColumnType("text");
 
                     b.Property<string>("SourcesNames")
